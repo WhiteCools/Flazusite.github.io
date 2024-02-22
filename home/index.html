@@ -6,6 +6,7 @@
     <title>Flazu Economy</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,7 +85,7 @@
         }
         .box {
             background-color: #091117;
-            padding: 50px;
+            padding: fixed;
             color: #fff;
             display: flex;
             justify-content: space-between;
@@ -126,6 +127,59 @@
         .discord img {
             height: 200px;
             filter: drop-shadow(5px 5px 6px rgb(142, 142, 142));
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            filter: drop-shadow(8px 2px 10px rgba(#ffffff))
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
         }
         @media screen and (max-width: 800px) {
             .top {
@@ -251,22 +305,113 @@
     <div class="discord">
         <p>Discord bot</p>
         <img src="../img/discord.png">
-        <h2>Price : Discord Riko#7488</h2>
-        <button class="buy">Buy</button>
+        <h2>Price : RM 30</h2>
+        <button class="buy" onclick="openModal('Discord Bot', '30')">Buy</button>
     </div>
     <div class="website">
         <p>Website</p>
         <img src="../img/web.png">
-        <h2>Price : Discord Riko#7488</h2>
-        <button class="buy">Buy</button>
+        <h2>Price : RM 30</h2>
+        <button class="buy" onclick="openModal('Website', '30')">Buy</button>
     </div>
     <div class="gtav">
         <p>GTAV Account</p>
         <img src="../img/gtav.png">
         <h2>Price : RM 30</h2>
-        <button class="buy">Buy</button>
+        <button class="buy" onclick="openModal('GTAV Account', '30')">Buy</button>
     </div>
 </div>
+
+<!-- The modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Enter your details:</h2>
+        <input type="text" id="nameInput" placeholder="Your Name">
+        <input type="text" id="emailInput" placeholder="Your Email">
+        <input type="text" id="phoneInput" placeholder="Your Phone Number">
+        <button type="submit" onclick="submitDetails()">Submit</button>
+    </div>
+</div>
+
+<script>
+    var itemName;
+    var itemPrice;
+
+    function openModal(name, price) {
+        itemName = name;
+        itemPrice = price;
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    function submitDetails() {
+        var name = document.getElementById("nameInput").value;
+        var email = document.getElementById("emailInput").value;
+        var phone = document.getElementById("phoneInput").value;
+
+        // Perform validation if needed
+
+        closeModal();
+        buyItem(itemName, itemPrice, name, email, phone);
+    }
+
+    function buyItem(itemName, price, name, email, phone) {
+        var options = {
+            "key": "rzp_test_XqHiouLm69jxsv", // Enter your Razorpay Key ID here
+            "amount": price * 100, // Convert price to the smallest currency unit (e.g., cents)
+            "currency": "MYR",
+            "description": itemName,
+            "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
+            "prefill": {
+                "email": email,
+                "contact": phone,
+            },
+            config: {
+                display: {
+                blocks: {
+                    banks: {
+                    name: 'All payment methods',
+                    instruments: [
+                        {
+                        method: 'card'
+                        },
+                        {
+                            method: 'wallet'
+                        },
+                        {
+                            method: 'fpx'
+                        }
+                    ],
+                    },
+                },
+                sequence: ['block.banks'],
+                preferences: {
+                    show_default_blocks: false,
+                },
+                },
+            },
+            "handler": function (response) {
+                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                // You can add further actions here, like updating the database or displaying a success message.
+            },
+            "modal": {
+                "ondismiss": function () {
+                    console.log("Checkout form closed by the user");
+                    // You can add actions here if the user closes the payment form.
+                }
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+    }
+</script>
   
 </body>
 </html>
