@@ -84,13 +84,15 @@
         }
         .box {
             background-color: #091117;
-            padding: 20px;
+            padding: auto;
             color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 40 40 40px rgba(0, 0, 0, 0.1);
             text-align: center;
+            flex-wrap: wrap;
+            gap: 20px
         }
         .discord{
             background-color: #c6c0c0;
@@ -104,9 +106,26 @@
             border-radius: 20%;
             width: 40%;
         }
+        .gtav {
+            background-color: #c6c0c0;
+            padding: 20px;
+            border-radius: 20%;
+            width: 40%;
+        }
+        .buy {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px 90px;
+            background-color: #3f7036bd;
+            border-radius: 10%;
+        }
+        .buy:hover {
+            background: rgb(0, 255, 0);
+        }
         .website img,
+        .gtav img,
         .discord img {
             height: 200px;
+            filter: drop-shadow(5px 5px 6px rgb(142, 142, 142));
         }
         @media screen and (max-width: 800px) {
             .top {
@@ -127,13 +146,24 @@
             .discord {
                 width: 30%;
             }
+            .gtav {
+                width: 30%;
+            }
             .discord h2,
+            .gtav h2,
             .website h2 {
                 font-size: 10px;
             }
+            .gtav img,
             .website img,
             .discord img {
                 height: 80px;
+            }
+            .buy {
+                font-family: 'Courier New', Courier, monospace;
+                padding: 10px 10px;
+                background-color: #3f7036bd;
+                border-radius: 10%;
             }
         }
     </style>
@@ -180,7 +210,7 @@
                             data: {
                                 labels: Array.from({ length: prices.length }, (_, i) => ''),
                                 datasets: [{
-                                    label: 'Bitcoin Price (USD)',
+                                    label: `Price (USD)`,
                                     data: prices,
                                     borderColor: 'rgba(255, 99, 132, 1)',
                                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -222,12 +252,20 @@
         <p>Discord bot</p>
         <img src="img/discord.png">
         <h2>Price : Discord Riko#7488</h2>
+        <button class="buy">Buy</button>
     </div>
     <div class="website">
         <p>Website</p>
         <img src="img/web.png">
         <h2>Price : Discord Riko#7488</h2>
-    </div> 
+        <button class="buy">Buy</button>
+    </div>
+    <div class="gtav">
+        <p>GTAV</p>
+        <img src="img/gtav.png">
+        <h2>Price : Discord Riko#7488</h2>
+        <button class="buy">Buy</button>
+    </div>
 </div>
   
 </body>
