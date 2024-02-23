@@ -238,6 +238,6 @@ if(isset($_POST['register'])){
         }
     </script>
 </div>
-
+<?php include '../footer.html'; ?>
 </body>
 </html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            flex: 0 0 auto; /* Ensure logo does not grow or shrink */
+        }
+
+        .logo-img {
+            height: 50px; /* Adjust the height of the logo */
+        }
+
+        .company-info,
+        .contact-info {
+            flex: 1 1 300px;
+            margin-bottom: 20px;
+        }
+
+        .company-info h3,
+        .contact-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .footer-links ul li:last-child {
+            margin-right: 0;
+        }
+
+        .footer-links ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo">
+                <img src="../img/logo.png" alt="Company Logo" class="logo-img">
+            </div>
+            <div class="company-info">
+                <h3>About Us</h3>
+                <p>flazu is a company that provides services in the cyber world, for example providing code services such as discord bots, websites and others </p>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Address: None</p>
+                <p>Phone: +60195025254</p>
+                <p>Email: chuyo@chuyoriko.us</p>
+            </div>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
